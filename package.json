@@ -1,0 +1,24 @@
+{
+  "name": "playlist.share",
+  "version": "1.0.0",
+  "description": "The better way of sharing playlists.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whizbangpop/playlist.share.git"
+  },
+  "author": "Abi Henderson",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/whizbangpop/playlist.share/issues"
+  },
+  "homepage": "https://github.com/whizbangpop/playlist.share#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "pug": "^3.0.2"
+  }
+}

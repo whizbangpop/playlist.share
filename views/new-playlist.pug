@@ -1,0 +1,18 @@
+- var words = platform.split(" ");
+- var platformFinal = ""
+
+each val, index in words 
+  - platformFinal = platformFinal + words[index][0].toUpperCase() + words[index].substr(1)
+
+html
+  head
+    title New Playlist
+    link(rel="stylesheet", href="/dist/style.css")
+  body
+    if platform === "ytmusic"
+      h1 New YouTube Music Playlist
+    else if platform === "amazon"
+      h1 New Amazon Music Playlist
+    else
+      h1 New #{platformFinal} Playlist
+    p playlist.share ID: #{plstid}
