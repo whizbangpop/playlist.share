@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-
-const info = require('../lib/getUrlInfo')
+const { QuickDB } = require("quick.db");
+const db = new QuickDB();
+const playlistDb = await db.table("playshare_list_db")
 
 router.get('/new/*', async (req, res) => {
     const { url, hostname, platform, playlistid } = await getUrlInfo(req)
@@ -9,13 +10,18 @@ router.get('/new/*', async (req, res) => {
 
     // res.json({ playlistUrl: url, hostname, platform, playlistid })
     // res.render('index', { url, hostname, platform, playlistid })
-    res.redirect(`/playlist?plstid=${playlistid}&hostname=${hostname}&platform=${platform}`)
+    res.redirect(`/playlist/new?plstid=${playlistid}`)
+    playlistDb.push(playlistid, { platform })
     console.log(platform)
 })
 
-router.get('/playlist', async (req, res) => {
+router.get('/playlist/new', async (req, res) => {
     console.log(req.query)
     res.render('new-playlist', { platform: req.query.platform, plstid: req.query.plstid })
+})
+
+router.get('/ps/:playshareid', async (req, res) => {
+
 })
 
 module.exports = router;

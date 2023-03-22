@@ -1,0 +1,3 @@
+tasks:
+  - init: npm install -g nodemon && npm install
+    command: nodemon -e js,pug .
