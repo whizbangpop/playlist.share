@@ -1,0 +1,16 @@
+
+
+html
+  head
+    title New Playlist
+    link(rel="stylesheet", href="/dist/style.css")
+  body
+    .container
+      .title-box(class="flex-box")
+        h1 PlayShare #{plstid}
+        p Origin URL: <a href=url>#{url}</a>
+      .info-box(class="flex-box")
+        h2 Share This PlayShare with Others! 
+        p <a href="https://playshare.com/ps/#{plstid}">https://playshare.com/ps/#{plstid}</a> <br>or<br> <a href="https://plyshre.io/#{plstid}">https://plyshre.io/#{plstid}</a>
+    .copyright-notice
+      p Made with ❤ by WhizBangPop | PlayShare is licenced under AGPL-v3
