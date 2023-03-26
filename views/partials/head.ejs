@@ -1,0 +1,21 @@
+<meta charset="utf8">
+<title>
+    <%= pageTitle %> | PlayShare
+</title>
+
+<script>
+    window.goatcounter = {
+        path: function(p) {
+            if (p.startsWith("/ps/new?")) {
+                return ("/ps/new")
+            }
+        },
+    }
+</script>
+<script data-goatcounter="https://playshare.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<noscript>
+    <img src="https://playshare.goatcounter.com/count?p=/test-noscript">
+</noscript>
+
+<link rel="stylesheet" href="/dist/style.css">
