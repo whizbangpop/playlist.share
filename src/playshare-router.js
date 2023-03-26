@@ -30,7 +30,12 @@ router.get('/ps/new', async (req, res) => {
     try {
         const playshareList = await playlistDb.get(`${req.query.plstid}`)
         if (!playshareList || playshareList[0].platform === undefined) {
-            return res.render('creation-failed')
+            const box_1_title = "Something Went Wrong!"
+            const box_1_body = "<p>Something seemed to go wrong when creating your PlayShare. Please try again.</p>"
+            const box_2_title = ""
+            const box_2_body = `<p>If this error persists, contact WhizBangPop in the <a href="https://dsc.gg/sdstudios">SDStudios Discord server</a>.</p>`
+
+            return res.render('pages/dynamicTemplate', { pageTitle: "Creation Failed", box_1_title, box_1_body, box_2_title,  box_2_body })
         }
         res.render('new-playlist', { plstid: req.query.plstid, platform: `${playshareList[0].platform}`, origin: `${playshareList[0].origin_url}` })
     } catch (e) {
