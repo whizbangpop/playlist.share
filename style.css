@@ -49,3 +49,22 @@ body {
     transition: cubic-bezier(0.19, 1, 0.22, 1);
     transition-delay: 85ms;
 }
+.legal {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-left: 10px;
+    font-size: xx-small;
+    color: #6a6f6f;
+    transition: cubic-bezier(0.19, 1, 0.22, 1);
+    transition-delay: 85ms;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.text-box {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10px;
+}
