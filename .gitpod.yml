@@ -7,4 +7,4 @@ ports:
   - name: Web/API
     description: The main application web server
     port: 4000
-    onOpen: open-browser
+    onOpen: notify
