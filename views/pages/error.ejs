@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%-include('../partials/head', { pageTitle: " Critical Error!" }) %>
+</head>
+<body>
+	<div class="container">
+		<img src="/dist/logo.png" width="320" height="200" alt="" style="align-self: center;">
+		<div class="flex-box">
+			<h1>Critial Error!</h1>
+			<p>Sentry Error Id: <%- sentryid %></p>
+		</div>
+		<div class="flex-box">
+			<p>Something went <strong>VERY</strong> wrong when trying to do something, and it has caused a critial server error.</p>
+			<p>TLDR; Something broke very badly. We don't know what yet.</p>
+		</div>
+		<div class="flex-box">
+			<p><%- error %></p>
+		</div>
+	<%- include('../partials/footer') %>
+</body>
+</html>
