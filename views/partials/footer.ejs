@@ -1,2 +1,13 @@
 <p class="copyright-notice" style="text-align: left;">Made with ❤ by WhizBangPop | PlayShare is licenced under AGPL-v3</p>
 <p class="legal" style="text-align: right;"><a href="/legal/privacy">Privacy</a> | <a href="/legal/tos">Terms of Service</a></p>
+
+<script>
+	Sentry.init({
+		dsn: "https://8b997b633ae542a194d8663c0e9425d3@o4503992923193344.ingest.sentry.io/4504905868967936",
+		beforeSend(event, hint) {
+			Sentry.showReportDialog({ eventId: event.event_id });
+			const eventid1 = event.event_id
+			return event;
+		},
+	});
+</script>
