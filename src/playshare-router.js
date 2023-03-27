@@ -15,18 +15,17 @@ const newPlayShareLimiter = rateLimiter({
     legacyHeaders: false,
 })
 
-router.get('/new/*', async (req, res) => {
-    const { url, hostname, platform, playlistid } = await getUrlInfo(req)
-    console.log(req.params)
-
-    // res.json({ playlistUrl: url, hostname, platform, playlistid })
-    // res.render('index', { url, hostname, platform, playlistid })
-    res.redirect(`/ps/new?plstid=${playlistid}`)
-    playlistDb.push(`${playlistid}`, { platform, origin_url: hostname })
-    console.log(platform)
+router.get('/new/*', async function newPlayShare(req, res) {
+    try {
+        const { url, hostname, platform, playlistid } = await getUrlInfo(req)
+        res.redirect(`/ps/new?plstid=${playlistid}`)
+        playlistDb.push(`${playlistid}`, { platform, origin_url: hostname })
+    } catch (error) {
+        throw new Error(error)
+    }
 })
 
-router.get('/ps/new', async (req, res) => {
+router.get('/ps/new', async function newPlayShareRender(req, res) {
     try {
         const playshareList = await playlistDb.get(`${req.query.plstid}`)
         if (!playshareList || playshareList[0].platform === undefined) {
@@ -37,13 +36,19 @@ router.get('/ps/new', async (req, res) => {
 
             return res.render('pages/dynamicTemplate', { pageTitle: "Creation Failed", box_1_title, box_1_body, box_2_title,  box_2_body })
         }
-        res.render('new-playlist', { plstid: req.query.plstid, platform: `${playshareList[0].platform}`, origin: `${playshareList[0].origin_url}` })
+
+        const box_1_title = "New PlayShare Created!"
+        const box_1_body = `PlayShare ID: ${req.query.plstid} | Origin URL: ${playshareList[0].origin}`
+        const box_2_title = "Share this PlayShare with Friends!"
+        const box_2_body = `<a href="https://playshare.com/ps/${req.query.plstid}">https://playshare.com/share/${req.query.plstid}</a> <br> or <br> <a href="https://plyshre.io/${req.query.plstid}">https://plyshre.io/${req.query.plstid}</a>`
+
+        res.render('pages/dynamicTemplate', { box_1_title, box_1_body, box_2_title, box_2_body, pageTitle: "New PlayShare" })
     } catch (e) {
-        console.log(e)
+        throw new Error(e)
     }
 })
 
-router.get('/ps/info/*', async (req, res) => {
+router.get('/ps/info/*', async function PlayShareInfo(req, res) {
     try {
         const shareList = await playlistDb.get(req.params[0])
         console.log(shareList)
@@ -52,7 +57,7 @@ router.get('/ps/info/*', async (req, res) => {
         }
         res.render('playshare-info', { origin: shareList[0].origin_url, plstid: req.params[0] })
     } catch (error) {
-        console.log(error)
+        throw new Error(e)
     }
 })
 
@@ -63,20 +68,25 @@ router.get('/ps/dev-routes/creation-failed', async (req, res) => {
 module.exports = router;
 
 async function getUrlInfo(req) {
-    let url = new URL(req.params[0])
-    let hostname = url.hostname
-    let platform = "none";
-    let playlistid = Date.now();
+    try {
+        if (!req.params[0].startsWith("https")) return new Error("Invalid URL Request")
+        let url = new URL(req.params[0])
+        let hostname = url.hostname
+        let platform = "none";
+        let playlistid = Date.now();
 
-    if (hostname === "open.spotify.com") {
-        platform = "spotify"
-    } else if (hostname === "music.youtube.com") {
-        platform = "ytmusic"
-    } else if (hostname === "youtube.com" || hostname === "youtu.be") {
-        platform = "youtube"
-    } else {
-        platform = "unknown"
-    }
+        if (hostname === "open.spotify.com") {
+            platform = "spotify"
+        } else if (hostname === "music.youtube.com") {
+            platform = "ytmusic"
+        } else if (hostname === "youtube.com" || hostname === "youtu.be") {
+            platform = "youtube"
+        } else {
+            platform = "unknown"
+        }
 
     return { url, hostname, platform, playlistid }
+    } catch (error) {
+        throw new Error(error)
+    }
 }
