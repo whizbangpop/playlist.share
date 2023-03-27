@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/whizbangpop/playlist.share#readme",
   "dependencies": {
+    "@sentry/node": "^7.45.0",
+    "@sentry/profiling-node": "^0.3.0",
+    "@sentry/tracing": "^7.45.0",
     "better-sqlite3": "^8.2.0",
     "body-parser": "^1.20.2",
     "ejs": "^3.1.9",
